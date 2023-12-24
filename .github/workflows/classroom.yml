@@ -20,10 +20,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      
       - name: Setup Maven
         uses: stCarolas/setup-maven@v4.4
         with:
           maven-version: 3.8.6
+      
       - name: Build Gateway to jar
         run: mvn -f src/Gateway/pom.xml --batch-mode --update-snapshots clean package
       - name: Build Cars to jar
@@ -58,19 +60,19 @@ jobs:
           delayRequest: 150
           reporters: '[ "cli" ]'
 
-      - uses: education/autograding@v1
-        id: autograder
-        continue-on-error: true
+      #- uses: education/autograding@v1
+        #id: autograder
+        #continue-on-error: true
 
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 2
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
+      #- name: Github auto grader mark
+        #uses: Romanow/google-sheet-autograder-marker@v1.0
+        #with:
+          #google_token: ${{secrets.GOOGLE_API_KEY}}
+          #sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
+          #homework_number: 2
+          #user_column: 'D'
+          #column_offset: 'F'
+          #mark: "'+"
 
       - name: Stop containers
         if: always()
